@@ -38,6 +38,9 @@
 		$dag = "zondag"; 
 	} 
 
+	/*deel 2*/
+	$dagCaps		=	strtoupper($dag)		;
+
 ?>
 
 <!DOCTYPE html>
@@ -47,5 +50,6 @@
 <body>
 	<h1>Deel 1</h1>
 	<p>Het is vandaag <?= $dag ?></p>
+	<p>In all caps is dat: <?= $dagCaps ?></p>
 </body>
 </html>
