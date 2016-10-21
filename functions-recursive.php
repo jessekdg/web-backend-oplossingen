@@ -1,27 +1,21 @@
 <?php
 
-	/*
-	geerfd: 100.000 euro
-	rentevoet: 8% per jaar (8.000 euro per jaar)
-	verplicht 10 jaar op bank laten staan (180.000 euro na 10 jaar)
-	*/
-
 	$erfenis = 100000;
 	$maxJaren = 10;
 	$renteVoet = 0.08;
 
-	function PlusRente1Jaar($bedrag, $rente)
+	function PlusRente1Jaar($bedrag, $rente, $jaren)
 	{
 		static $jaar = 1;
 		static $bedragPerJaar = array();
 
-		if($jaar < $maxJaren)
+		if($jaar <= $jaren)
 		{
-			$nieuwBedrag = $bedrag + $bedrag * $rente;
-			$bedragPerJaar [$jaar ] = "Na " . $jaar . " jaar heeft Hans " . $nieuwBedrag . " euro.";
+			$nieuwBedrag = floor($bedrag + $bedrag * $rente);
+			$bedragPerJaar [$jaar] = "Na " . $jaar . " jaar heeft Hans " . $nieuwBedrag . " euro.";
 			$jaar++;
 
-			return PlusRente1Jaar($nieuwBedrag, $rente);
+			return PlusRente1Jaar($nieuwBedrag, $rente, $jaren);
 		}
 		else
 		{
@@ -29,7 +23,7 @@
 		}
 	}
 
-	$bedragen = PlusRente1Jaar($erfenis, $renteVoet);
+	$berekening = PlusRente1Jaar($erfenis, $renteVoet, $maxJaren);
 
 ?>
 
@@ -42,7 +36,7 @@
 		<h1>Deel 1</h1>
 		<p>
 			<?php
-			foreach($bedragen as $message)
+			foreach($berekening as $message)
 			{ ?>
 				<p><?= $message ?></p>
 			<?php 
