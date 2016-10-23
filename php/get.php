@@ -38,8 +38,9 @@
 
 		if(array_key_exists($id, $artikels))
 		{
+			$artikelBestaat = true;
 			$toonArtikel = true;
-			$artikels = array($artikels[$id]);
+			$artikel = array($artikels[$id]);
 		}
 		else
 		{
@@ -48,58 +49,3 @@
 	}
 
 ?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<?php if(!$toonArtikel): ?>
-			<title>
-				Homepage
-			</title>
-		<?php elseif(!$artikelBestaat): ?>
-			<title>
-				Artikel bestaat niet
-			</title>
-		<?php else: ?>
-			<title>
-				<?= $artikels[$id][0] ?>
-			</title>
-		<?php endif ?>
-
-		<link rel='stylesheet' type='text/css' href='css/get.css'>
-	</head>
-	<body>
-		<pre><?= var_dump($artikels) ?></pre>
-
-		<!-- alleen resultaat laten zien als het artikel bestaat-->
-		<?php if($artikelBestaat): ?>
-			<div class='artikel'>
-			<!-- Doorloop alle artikels in de array -->
-			<?php foreach($artikels as $key => $artikel): ?>
-				<!-- Als er maar 1 artikel getoond moet worden, wordt de klasse van het
-				artikel 'single' genoemd, anders 'multiple' -->
-				<article class='<?= ($toonArtikel) ? 'single' : 'multiple' ?>'>
-					<h1><?= $artikel[0] ?></h1>
-					<img
-						src = <?= $artikel[2] ?>,
-						alt = <?= $artikel[3] ?>>
-					<p>
-						<?= 
-							($toonArtikel) ? $artikel[1] : /* als er maar 1 artikel zichtbaar mag zijn */
-							substr( $artikel[1], 0, 50 ) . '...' ; /* meerdere artikels */
-						?>
-					</p>
-					<?php if (!$toonArtikel): ?>
-						<a 
-							href= 'get.php?id=<?= $key ?>'>
-							Lees meer...
-						</a>
-					<?php endif; ?>
-				</article>
-			<?php endforeach; ?>
-			</div>
-		<?php else: ?>
-			<p>Artikel ID <?= $id ?>bestaat niet.</p>
-		<?php endif; ?>
-	</body>
-</html>
