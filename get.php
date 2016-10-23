@@ -35,22 +35,40 @@
 <html>
 	<head>
 		<title>GET</title>
+		<style type='text/css'>
+			.artikel
+			{
+				background-color: #B6AEA6;
+				margin-top: 30px;
+				padding: 5px;
+				border: 4px solid black;
+				width: 25%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.artikel img
+			{
+				width: 100%;
+				border: 2px solid grey;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Deel 1</h1>
 		<pre><?= var_dump($artikels) ?></pre>
 
 		<?php foreach($artikels as $key => $value): ?>
-			<form>
-				<fieldset>
-					<legend><b><?= $artikels[$key][0] ?></b></legend>
-					<img
-						src = <?= $artikels[$key][2] ?>,
-						alt = <?= $artikels[$key][3] ?>,
-						height = 150px, width = 500px>
-					<p><?= $artikels[$key][1] ?></p>
-				</fieldset>>
-			</form>
+			<div class='artikel'>
+				<h1><?= $artikels[$key][0] ?></h1>
+				<img
+					src = <?= $artikels[$key][2] ?>,
+					alt = <?= $artikels[$key][3] ?>>
+				<p><?= substr($artikels[$key][1], 0, 50) . '...' ?></p>
+				<a 
+					href= 'index.php?id=<?= $key ?>'>
+					Lees meer...
+				</a>
+			</div>
 		<?php endforeach; ?>
 
 	</body>
