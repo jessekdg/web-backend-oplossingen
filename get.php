@@ -69,8 +69,9 @@
 		<link rel='stylesheet' type='text/css' href='css/get.css'>
 	</head>
 	<body>
+		<!--
 		<pre><?= var_dump($artikels) ?></pre>
-
+		-->
 		<!-- alleen resultaat laten zien als het artikel bestaat-->
 		<?php if($artikelBestaat): ?>
 			<div class='artikel'>
@@ -101,5 +102,10 @@
 		<?php else: ?>
 			<p>Artikel ID <?= $id ?>bestaat niet.</p>
 		<?php endif; ?>
+
+		<form action='search.php' method='get'>
+			Zoek door artikel:
+			<input type='search' name='phpsearch'>
+		</form>
 	</body>
 </html>

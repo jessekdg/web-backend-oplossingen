@@ -40,3 +40,8 @@ img
 	float:right;
 	margin-left: 16px;
 }
+
+form
+{
+	position: absolute;
+}
