@@ -29,47 +29,117 @@
 		'Politierechter Mireille Schreurs'
 	);
 
+	$artikelBestaat = true;
+	$toonArtikel = false;
+
+	if ( isset( $_GET['id'] ))
+	{
+		$id = $_GET['id'];
+
+		if(array_key_exists($id, $artikels))
+		{
+			$artikelBestaat = true;
+			$toonArtikel = true;
+			$artikel = array($artikels[$id]);
+		}
+		else
+		{
+			$artikelBestaat = false;
+		}
+	}
+
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>GET</title>
+		<?php if(!$toonArtikel): ?>
+			<title>
+				Homepage
+			</title>
+		<?php elseif(!$artikelBestaat): ?>
+			<title>
+				Artikel bestaat niet
+			</title>
+		<?php else: ?>
+			<title>
+				<?= $artikels[$id][0] ?>
+			</title>
+		<?php endif ?>
 		<style type='text/css'>
+			body
+			{
+				font-family:"Segoe UI";
+				color:#423f37;
+			}
+
 			.artikel
 			{
-				background-color: #B6AEA6;
-				margin-top: 30px;
-				padding: 5px;
-				border: 4px solid black;
-				width: 25%;
-				margin-left: auto;
-				margin-right: auto;
+				width:	1024px;
+				margin:	0 auto;
 			}
-			.artikel img
+
+			img
 			{
-				width: 100%;
-				border: 2px solid grey;
+				max-width: 100%;
 			}
+
+			.multiple
+			{
+				float:left;
+				width:288px;
+				margin:16px;
+				padding:16px;
+				box-sizing:border-box;
+				background-color:#EEEEEE;
+			}
+
+			.multiple:nth-child(3n+1)
+			{
+				margin-left:0px;
+			}
+
+			.multiple:nth-child(3n)
+			{
+				margin-right:0px;
+			}
+
+			.single img
+			{
+				float:right;
+				margin-left: 16px;
+			}
+
 		</style>
 	</head>
 	<body>
-		<h1>Deel 1</h1>
 		<pre><?= var_dump($artikels) ?></pre>
 
-		<?php foreach($artikels as $key => $value): ?>
+		<?php if($artikelBestaat): ?>
 			<div class='artikel'>
-				<h1><?= $artikels[$key][0] ?></h1>
-				<img
-					src = <?= $artikels[$key][2] ?>,
-					alt = <?= $artikels[$key][3] ?>>
-				<p><?= substr($artikels[$key][1], 0, 50) . '...' ?></p>
-				<a 
-					href= 'index.php?id=<?= $key ?>'>
-					Lees meer...
-				</a>
+			<?php foreach($artikels as $key => $artikel): ?>
+				<article class='<?= ($toonArtikel) ? 'single' : 'multiple' ?>'>
+					<h1><?= $artikel[0] ?></h1>
+					<img
+						src = <?= $artikel[2] ?>,
+						alt = <?= $artikel[3] ?>>
+					<p>
+						<?= 
+							($toonArtikel) ? $artikel[1] : /* als er maar 1 artikel zichtbaar mag zijn */
+							substr( $artikel[1], 0, 50 ) . '...' ; /* meerdere artikels */
+						?>
+					</p>
+					<?php if (!$toonArtikel): ?>
+						<a 
+							href= 'get.php?id=<?= $key ?>'>
+							Lees meer...
+						</a>
+					<?php endif; ?>
+				</article>
+			<?php endforeach; ?>
 			</div>
-		<?php endforeach; ?>
-
+		<?php else: ?>
+			<p>Artikel ID <?= $id ?>bestaat niet.</p>
+		<?php endif; ?>
 	</body>
 </html>
