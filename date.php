@@ -16,6 +16,8 @@
 <html>
 	<head>
 		<title>Date</title>
+	</head>
+	<body>
 		<p>
 			<b>Timestamp:</b>
 			<?= $timestamp ?>
@@ -24,8 +26,5 @@
 			<b>Date:</b>
 			<?= $date ?>
 		</p>
-	</head>
-	<body>
-		
 	</body>
 </html>
