@@ -82,7 +82,7 @@
 				<article class='<?= ($toonArtikel) ? 'single' : 'multiple' ?>'>
 					<h1><?= $artikel[0] ?></h1>
 					<img
-						src = <?= $artikel[2] ?>,
+						src = <?= $artikel[2] ?>
 						alt = <?= $artikel[3] ?>>
 					<p>
 						<?= 
