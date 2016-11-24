@@ -2,30 +2,37 @@
 
 	$textfile = file_get_contents('text.txt');
 	$gegevens = explode(',', $textfile);
+	$gegevens = array_chunk($gegevens, 2);
 	$loginSuccesful = false;
 	$message = 'default';
+	$currentUsername = '';
 
 	if(isset($_POST['verzenden']))
 	{
-		if($_POST['gebruikersnaam'] == $gegevens[0] && $_POST['paswoord'] == $gegevens[1])
+		foreach($gegevens as $key => $user)
 		{
-			$loginSuccesful = true;
-			$message = 'inloggen gelukt';
-			if( isset($_POST['onthoudmij']) )
+			if($_POST['gebruikersnaam'] == $gegevens[$key][0] && $_POST['paswoord'] == $gegevens[$key][1])
 			{
-				setcookie('succesfulLogin', true, time() + 2592000);
+				$loginSuccesful = true;
+				$currentUsername = $_POST['gebruikersnaam'];
+				$message = 'inloggen gelukt';
+				if( isset($_POST['onthoudmij']) )
+				{
+					setcookie('succesfulLogin', true, time() + 2592000);
+				}
+				else
+				{
+					setcookie('succesfulLogin', true);
+				}
+				header('location: cookies.php');
 			}
 			else
 			{
-				setcookie('succesfulLogin', true);
+				$message = 'inloggen mislukt';
+				$loginSuccesful = false;
 			}
-			header('location: cookies.php');
 		}
-		else
-		{
-			$message = 'inloggen mislukt';
-			$loginSuccesful = false;
-		}
+		
 	}
 
 	if( isset($_GET['logout']) )
@@ -42,14 +49,12 @@
 		<title>Cookies</title>
 	</head>
 	<body>
+
+	<pre><?= var_dump($gegevens) ?></pre>
+
 	<?php if( isset($_COOKIE['succesfulLogin']) ): ?>
 		<h1>Dashboard</h1>
-		<p>Hallo <?= $gegevens[0] ?>, fijn dat je er weer bent!</p>
-			<!-- TEST COOKIE COUNT
-			<?php if( isset($_COOKIE['succesfulLogin']) ): ?>
-				<p>Cookie set: <?= $_COOKIE['succesfulLogin'] ?></p>
-			<?php endif; ?>
-			-->
+		<p>Hallo <?= $currentUsername ?>, fijn dat je er weer bent!</p>
 		<a href='cookies.php?logout=1'>Uitloggen</a>
 	<?php else: ?>
 		<h1>Inloggen</h1>
