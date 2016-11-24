@@ -44,7 +44,7 @@
 	<body>
 	<?php if( isset($_COOKIE['succesfulLogin']) ): ?>
 		<h1>Dashboard</h1>
-		<p>U bent ingelogd.</p>
+		<p>Hallo <?= $gegevens[0] ?>, fijn dat je er weer bent!</p>
 			<!-- TEST COOKIE COUNT
 			<?php if( isset($_COOKIE['succesfulLogin']) ): ?>
 				<p>Cookie set: <?= $_COOKIE['succesfulLogin'] ?></p>
