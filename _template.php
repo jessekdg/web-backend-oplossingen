@@ -7,10 +7,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>GET</title>
+		<title>titel</title>
 	</head>
 	<body>
-		<h1>Deel 1</h1>
-		<p></p>
+
 	</body>
 </html>

@@ -49,9 +49,9 @@
 		<title>Cookies</title>
 	</head>
 	<body>
-
+	<!--
 	<pre><?= var_dump($gegevens) ?></pre>
-
+	-->
 	<?php if( isset($_COOKIE['succesfulLogin']) ): ?>
 		<h1>Dashboard</h1>
 		<p>Hallo <?= $currentUsername ?>, fijn dat je er weer bent!</p>
