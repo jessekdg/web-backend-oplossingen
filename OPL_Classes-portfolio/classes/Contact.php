@@ -1,6 +1,6 @@
 <?php
 
-	class Contact extends Home
+	class Contact
 	{
 		
 	}

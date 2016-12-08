@@ -7,8 +7,9 @@
 
 	autoload('HTMLBuilder');
 	autoload('Contact');
+	autoload('Home');
 
-	$bodypartial = '';
+	$bodypartial;
 
 	if(isset($_GET['contact']) == 1)
 	{
@@ -19,6 +20,16 @@
 		$bodypartial = 'body.partial';
 	}
 
+
+	/*if(isset($_GET['content']) )
+	{
+		$bodypartial = $_GET['content'] . '.partial';
+	}
+	else
+	{
+		$bodypartial = 'body.partial';
+	}
+*/
 	$bobTheBuilder = new HTMLBuilder('header.partial', $bodypartial, 'footer.partial');
 	$bobTheBuilder->buildAll();
 

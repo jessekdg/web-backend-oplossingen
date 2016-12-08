@@ -6,6 +6,8 @@
 		public $bodypartial;
 		public $footerpartial;
 
+		public $headerTitle;
+
 		public function __construct($header, $body, $footer)
 		{
 			$this->headerpartial = $header;
@@ -15,6 +17,15 @@
 
 		protected function buildHeader()
 		{
+			if( isset( $_GET['contact']) == 1)
+			{
+				$headerTitle = 'Portfolio contact';
+			}
+			else
+			{
+				$headerTitle = 'Portfolio home';
+			}
+
 			require 'html/' . $this->headerpartial . '.php';
 			$this->buildCssLinks();
 		}
@@ -66,19 +77,23 @@
 		private function findFiles($dir, $ext)
 		{
 			$files = array(glob($dir . '/*' . $ext));
-			return $files;
-		}
 
-		protected function getIfGetIsSet()
-		{
-			if($_GET)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			
+//			$mergedFile = $dir . '/merged.'  . $ext;
+//			$fp1 = fopen($mergedFile, 'a+');
+//
+//			foreach($files as $file)
+//			{
+//				foreach($file as $value)
+//				{
+//					$mergedFile = fwrite($mergedFile, file_get_contents($value) . '/*' . 
+//						$value . ', ' . 
+//						strval(filesize($value)) . ', ' . 
+//						strval(filectime($value)) . '*/');
+//				}
+//			}			
+
+			return $files;
 		}
 	}
 
