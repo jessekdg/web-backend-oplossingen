@@ -1,0 +1,20 @@
+table, th, td
+{
+	border: 2px solid black;
+}
+
+td, th
+{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+th
+{
+	background-color: grey;
+}
+
+.even
+{
+	background-color: #D0D0D0;
+}

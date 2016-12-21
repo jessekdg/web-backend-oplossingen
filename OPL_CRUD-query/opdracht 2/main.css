@@ -1,0 +1,19 @@
+table, td, th
+{
+	border: 2px solid black;
+}
+
+th
+{
+	background-color: #606060;
+}
+
+td
+{
+	padding-left: 10px;
+}
+
+.odd
+{
+	background-color: #B8B8B8;
+}
