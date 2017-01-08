@@ -6,22 +6,6 @@
 	{
 		$bierenDB = new pdo('mysql:dbname=bieren;host=localhost', 'root', '');
 
-		$statement = $bierenDB->prepare('
-			SELECT * FROM brouwers');
-		$statement->execute();
-
-		$brouwers = array();
-		while ($row = $statement->fetch( PDO::FETCH_ASSOC ))
-		{
-			$brouwers = $row;
-		}
-
-		$titles = array();
-		for($i = 0; $i < $statement->columnCount(); ++$i)
-		{
-			$titles[] = $statement->getColumnMeta($i)['name'];
-		}
-
 		if(isset($_POST['delete']))
 		{
 			$statementDelete = $bierenDB->prepare('
@@ -35,13 +19,29 @@
 
 
 				$feedback['type'] = 'success';
-				$feedback['text'] = 'De datarij werd goed verwijderd.'
+				$feedback['text'] = 'De datarij werd goed verwijderd.';
 			}
 			else
 			{
 				$feedback['type'] = 'error';
-				$feedback['text'] = 'De datarij kon niet verwijderd worden. Probeer opnieuw.'
+				$feedback['text'] = 'De datarij kon niet verwijderd worden. Probeer opnieuw.';
 			}
+		}
+
+		$statement = $bierenDB->prepare('
+			SELECT * FROM brouwers');
+		$statement->execute();
+
+		$brouwers = array();
+		while ($row = $statement->fetch( PDO::FETCH_ASSOC ))
+		{
+			$brouwers[] = $row;
+		}
+
+		$titles = array();
+		for($i = 0; $i < $statement->columnCount(); ++$i)
+		{
+			$titles[] = $statement->getColumnMeta($i)['name'];
 		}
 	}
 	catch (PDOException $e)
@@ -60,18 +60,42 @@
 	</head>
 	<body>
 		<?php if($feedback): ?>
-			<p><?= $feedback['text'] ?></p>
+			<p class='<?= $feedback['type'] ?>'> ! <?= $feedback['text'] ?></p>
 		<?php endif ?>
 
 		<h1>Overzicht van de brouwers</h1>
-		<table>
-			<thead>
+		<form action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
+			<table>
 
-			</thead>
-			<tbody>
+				<thead>
+					<tr>
+						<th>#</th>
+						<?php foreach($titles as $value): ?>
+							<th><?= $value ?></th>
+						<?php endforeach ?>
+						<th></th>
+					</tr>
+				</thead>
 
-			</tbody>
-		</table>
+				<tbody>
+					<?php foreach ($brouwers as $key => $value): ?>
+						<tr class='<?php if(($key + 1) % 2 !== 0): ?>odd<?php endif ?>'>
+							<td><?= $key + 1 ?></td>
+							<?php foreach($value as $foo): ?>
+								<td><?= $foo ?>
+							<?php endforeach ?>
+							<td>
+								<button type='submit' name='delete' class='deletebutton' 
+								value='<?= $brouwers['brouwernr'] ?>'>
+									<img src='icon-delete.png'>
+								</button>
+							</td>
+							
+						</tr>
+					<?php endforeach ?>
+				</tbody>
+			</table>
+		</form>
 		<!-- <input type='image' name='delete' src='icon-delete.png' alt='submit'> -->
 	</body>
 </html>
