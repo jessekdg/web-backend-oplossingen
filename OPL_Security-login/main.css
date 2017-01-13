@@ -1,0 +1,16 @@
+#feedback {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.error {
+	background-color: pink;
+	border: 2px solid red;
+	color: red;
+}
+
+.success {
+	background-color: lightgreen;
+	border: 2px solid green;
+	color: green;
+}

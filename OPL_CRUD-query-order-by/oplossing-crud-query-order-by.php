@@ -37,20 +37,6 @@
 
 		$bierenQuery = query($db, $query) ;
 
-		$statement = $db->prepare
-		('
-			SELECT 
-				bieren.biernr,
-				bieren.naam,
-				brouwers.brnaam,
-				soorten.soort,
-				bieren.alcohol 
-			FROM bieren INNER JOIN brouwers
-				ON bieren.brouwernr	= brouwers.brouwernr
-				INNER JOIN soorten
-				ON bieren.soortnr = soorten.soortnr ' . $orderQuery
-		);
-
 		$bierenFieldnames = $bierenQuery['fieldnames'];
 		$bierenCleanFieldnames = processFieldnames( $bierenFieldnames );
 		$bieren	=$bierenQuery['data'];
